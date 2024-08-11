@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Image, Tag, Author, Category
+from .models import Post, Image, Tag, Category
 
 
 class ImageInline(admin.TabularInline):
@@ -8,9 +8,9 @@ class ImageInline(admin.TabularInline):
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'author', 'date', 'get_categories', 'status')
+    list_display = ('title', 'user', 'date', 'get_categories', 'status')
     inlines = [ImageInline]
-    fields = ('title', 'body', 'author', 'tags', 'category', 'status')
+    fields = ('title', 'body', 'user', 'tags', 'category', 'status')
 
     def get_categories(self, obj):
         return ", ".join([cat.name for cat in obj.category.all()])
@@ -32,5 +32,4 @@ class AuthorAdmin(admin.ModelAdmin):
 
 admin.site.register(Post, PostAdmin)
 admin.site.register(Tag, TagAdmin)
-admin.site.register(Author, AuthorAdmin)
 admin.site.register(Category, CategoryAdmin)
